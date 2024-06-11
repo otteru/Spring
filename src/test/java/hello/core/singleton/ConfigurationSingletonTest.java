@@ -29,8 +29,14 @@ public class ConfigurationSingletonTest {
         System.out.println("orderService -> memberRepository = " + memberRepository2);
         System.out.println("memberRepository = " + memberRepository);
 
-        Assertions.assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
-        Assertions.assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
+        /*AppConfig의 @Configuration을 주석처리하니 바이트 조작이 안되서 싱글톤 유지가 안되었다.
+        그래서 코드 변경함
+        원래 대로라면 싱글톤이 유지되서 isSameAs로 하는 것이 맞다.*/
+//        Assertions.assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
+//        Assertions.assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
+
+        Assertions.assertThat(memberService.getMemberRepository()).isNotSameAs(memberRepository);
+        Assertions.assertThat(orderService.getMemberRepository()).isNotSameAs(memberRepository);
     }
 
     @Test
